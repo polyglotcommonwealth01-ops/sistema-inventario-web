@@ -11,23 +11,21 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-# Compilar y empaquetar la aplicación en archivo JAR
+# Compilar y empaquetar la aplicación en archivo JAR omitiendo tests
 RUN mvn clean package -DskipTests
 
 # Etapa 2: Imagen ligera de ejecución (JRE 17)
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Crear directorio para base de datos embebida persistente
+# Crear directorio para base de datos persistente
 RUN mkdir -p /app/data
 
-# Copiar el archivo JAR generado desde la etapa de compilación
+# Copiar el archivo JAR generado
 COPY --from=builder /app/target/*.jar app.jar
 
-# Puerto y perfil por defecto
 ENV PORT=8080
-ENV SPRING_PROFILES_ACTIVE=cloud
 EXPOSE 8080
 
-# Iniciar la aplicación enlazando al puerto dinámico de Render
-ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT:-8080} -Dspring.profiles.active=cloud -jar app.jar"]
+# Iniciar la aplicación vinculada al puerto dinámico de Render
+ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT:-8080} -jar app.jar"]
