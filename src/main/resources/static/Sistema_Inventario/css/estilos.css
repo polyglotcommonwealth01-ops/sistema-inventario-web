@@ -1,0 +1,172 @@
+/* 
+ * PROYECTO INTEGRADOR GESTIÓN DE INVENTARIOS - SENA
+ * Archivo: css/estilos.css
+ * Cumple con las Clases 4 y 5 de CSS, Flexbox y Diseño Responsive
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 1. ESTILOS DE ENCABEZADO Y NAVEGACIÓN */
+header {
+    background-color: #1f4e79;
+    color: white;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-weight: 700;
+}
+
+header p {
+    margin-top: 10px;
+}
+
+nav {
+    background-color: #163a5c;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease-in-out;
+}
+
+nav a:hover {
+    color: #00d2ff !important;
+}
+
+/* 2. FLEXBOX Y CONTENEDORES RESPONSIVE (Clase 5) */
+.contenedor-tarjetas {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tarjeta {
+    flex: 1;
+    min-width: 220px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-3px);
+}
+
+.tarjeta h3 {
+    margin-top: 0;
+    color: #1f4e79;
+}
+
+.tarjeta p {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+/* 3. ESTILIZADO DE FORMULARIO Y CAMPOS (Clase 4 & 6) */
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus {
+    outline: none;
+    border-color: #1f4e79;
+    box-shadow: 0 0 0 0.25rem rgba(31, 78, 121, 0.25);
+}
+
+/* 4. ESTILIZADO DE BOTONES Y TABLAS (Clase 4 & 5) */
+.btn-custom {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.btn-custom:hover {
+    opacity: 0.88;
+}
+
+.tabla-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th {
+    background-color: #1f4e79;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* 5. MEDIA QUERIES PARA DISEÑO RESPONSIVE (Clase 5 - Seccion 18, 19, 21 y 28) */
+@media (max-width: 768px) {
+    .contenedor-tarjetas {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .btn-custom {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .tarjeta {
+        width: 100%;
+    }
+}

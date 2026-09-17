@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Productos - Sistema de Inventario</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Estilos Personalizados CSS -->
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="bg-light">
+
+    <!-- BARRA DE NAVEGACIÓN (Clase 6 - NAVBAR) -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-uppercase d-flex align-items-center" href="index.html">
+                <i class="bi bi-box-seam me-2 text-primary"></i> Sistema Inventario
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold" href="index.html">
+                            <i class="bi bi-house-door me-1"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold" href="registrar.html">
+                            <i class="bi bi-plus-circle me-1"></i> Registrar Producto
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-semibold" href="productos.html">
+                            <i class="bi bi-table me-1"></i> Consultar Inventario
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ENCABEZADO -->
+    <header class="bg-primary text-white py-4 mb-4 shadow-sm text-center">
+        <div class="container">
+            <h1 class="h2 fw-bold mb-1">Catálogo e Inventario General</h1>
+            <p class="mb-0 text-white-50">Consulta, filtrado y edición en tiempo real de productos en existencia.</p>
+        </div>
+    </header>
+
+    <main class="container mb-5">
+        <!-- CONTENEDOR DE ALERTAS MENSAJES (Clase 7 & 8) -->
+        <div id="mensaje" class="mb-3"></div>
+
+        <!-- FORMULARIO DE EDICIÓN RÁPIDA (Si se activa el modo Editar) -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h3 class="h5 mb-0"><i class="bi bi-pencil-square me-2"></i>Gestión de Producto</h3>
+                <a href="registrar.html" class="btn btn-sm btn-outline-light"><i class="bi bi-plus-lg me-1"></i>Nuevo Registro</a>
+            </div>
+            <div class="card-body p-4">
+                <form id="formProducto">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-3">
+                            <label for="codigo" class="form-label fw-bold">Código <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="codigo" placeholder="Ejemplo: P001" required>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <label for="nombre" class="form-label fw-bold">Nombre del Producto <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Ejemplo: Teclado Mecánico" required>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="marca" class="form-label fw-bold">Marca <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="marca" placeholder="Ejemplo: Logitech / Samsung" required>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="categoria" class="form-label fw-bold">Categoría <span class="text-danger">*</span></label>
+                            <select class="form-select" id="categoria" required>
+                                <option value="tecnologia">Tecnología</option>
+                                <option value="papeleria">Papelería</option>
+                                <option value="accesorios">Accesorios</option>
+                                <option value="insumos">Insumos Médicos</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="proveedor" class="form-label fw-bold">Proveedor</label>
+                            <input type="text" class="form-control" id="proveedor" placeholder="Ejemplo: Tecno SAS">
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="precio" class="form-label fw-bold">Precio Unitario ($) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="precio" placeholder="Ejemplo: 120000" min="0" step="0.01" required>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <label for="cantidad" class="form-label fw-bold">Cantidad (Stock) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="cantidad" placeholder="Ejemplo: 10" min="0" required>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-end">
+                        <button type="reset" class="btn btn-secondary me-2 px-3">
+                            <i class="bi bi-x-circle me-1"></i>Limpiar / Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-save me-1"></i>Guardar Producto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- BARRA DE BÚSQUEDA DE PRODUCTOS (Actividad 9 - SENA) -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-3 bg-white rounded">
+                <form id="formBuscar" class="row g-2 align-items-center">
+                    <div class="col-12 col-md-7">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-primary"></i></span>
+                            <input type="text" class="form-control border-start-0" id="inputBuscar" placeholder="Buscar producto por nombre (Ejemplo: teclado)..." autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary w-100 fw-semibold" id="btnBuscar">
+                            <i class="bi bi-search me-1"></i> Buscar Producto
+                        </button>
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <button type="button" class="btn btn-outline-secondary w-100" id="btnLimpiarBuscar">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i> Todos
+                        </button>
+                    </div>
+                </form>
+                <div id="resultadoBusquedaInfo" class="mt-2 text-muted small" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- TABLA RESPONSIVE DE PRODUCTOS (Clase 8 - CRUD READ / DELETE / UPDATE) -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
+                <h2 class="h5 mb-0 fw-bold"><i class="bi bi-list-check me-2"></i>Lista de Productos Registrados</h2>
+                <div class="d-flex align-items-center flex-wrap gap-3">
+                    <span class="fs-6 fw-normal">Total Valor Inventario: <strong id="totalInventarioGeneral" class="text-warning">$0</strong></span>
+                    <button id="btnExportarExcel" class="btn btn-success btn-sm fw-semibold shadow-sm" title="Descargar inventario en formato Excel (.xlsx)">
+                        <i class="bi bi-file-earmark-excel-fill me-1"></i> Exportar a Excel
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="tabla-responsive table-responsive">
+                    <table class="table table-striped table-hover align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col">Código</th>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col" class="text-end">Precio Unitario</th>
+                                <th scope="col" class="text-center">Existencias</th>
+                                <th scope="col" class="text-end">Valor Total</th>
+                                <th scope="col" class="text-center">Estado</th>
+                                <th scope="col" class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProductos">
+                            <!-- Filas dinámicas insertadas por app.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white text-center py-4 mt-auto border-top border-secondary">
+        <div class="container">
+            <p class="mb-1 fw-bold">Sistema Web de Gestión de Inventarios</p>
+            <p class="mb-0 text-muted small">&copy; 2026 SENA - Tecnólogo en Análisis y Desarrollo de Software.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
