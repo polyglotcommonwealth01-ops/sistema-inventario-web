@@ -12,7 +12,7 @@
  * - Opción D: Validaciones de campos obligatorios y valores no negativos.
  */
 
-const API_URL = (window.location.protocol.startsWith("http") && (window.location.port === "8080" || window.location.port === "8081"))
+const API_URL = (window.location.protocol === "http:" || window.location.protocol === "https:")
     ? "/productos"
     : "http://localhost:8080/productos";
 

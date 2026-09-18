@@ -5,7 +5,7 @@
  * Utiliza fetch API para consumir el servicio REST en http://localhost:8080/api/productos
  */
 
-const API_URL = (window.location.protocol.startsWith("http") && (window.location.port === "8080" || window.location.port === "8081"))
+const API_URL = (window.location.protocol === "http:" || window.location.protocol === "https:")
     ? "/productos"
     : "http://localhost:8080/productos";
 
